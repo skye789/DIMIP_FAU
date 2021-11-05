@@ -40,7 +40,7 @@ public class ExerciseGeoU {
 	
 	float fx;
 	float fy;
-	SimpleMatrix Xu; 
+	SimpleMatrix Xu;   # pixel values in each lattice points; lattice points are uniformly distribited in the image.
 	SimpleMatrix Yu;
 	SimpleMatrix Xd;
 	SimpleMatrix Yd;
