@@ -55,7 +55,7 @@ public class ExerciseGeoU {
 	SimpleVector YuVector;
 	SimpleVector XdVector;
 	SimpleVector YdVector; 
-	Grid2D xDist;  
+	Grid2D xDist;  //xDist means x_Distortion
 	Grid2D yDist;
 	Grid2D xprime; // x-coordinates of point correspondences in the undistorted image
 	Grid2D yprime; // y-coordinates of point correspondences in the undistorted image
