@@ -40,10 +40,32 @@ public class ExerciseGeoU {
 	
 	float fx;
 	float fy;
-	SimpleMatrix Xu;   # x coordinates in each lattice points; lattice points are uniformly distribited in the image.
+	
+	/**
+	 * (xprime,yprime) is the position in the undistorted image
+	 * (xDist,yDist) is the position in the distorted (observed) X-ray image.
+	 * 寻找的是distorted_img_index和undistorted_img_index之间的关系，而不是pixel_value的mapping关系；是位置变形而不是像素值变形
+	 * distortion的原因是镜头的原因，比如鱼眼镜头导致桶形变形(Barrel Distortion),除此之外还有枕形失真(Pincushion Distortion) 
+	 *   xprime=(-10, -10,...          xDist=(-10, -10,...
+	 *	      -9,  -9,...		   -9.5,  -9,...
+	 *	      ...				...
+	 *	      -9			   -9.5
+	 *	      -10, -10,...)		   -10, -10,...)
+	 */		
+	
+	Grid2D xprime; // x-coordinates of point correspondences in the undistorted image; given as input
+	Grid2D yprime; // y-coordinates of point correspondences in the undistorted image; given as input
+	Grid2D x; // x-coordinates of point correspondences in the distorted image; given as input
+	Grid2D y; // y-coordinates of point correspondences in the distorted image; given as input
+	
+	Grid2D xDist;  //xDist means x_Distortion
+	Grid2D yDist;
+	
+	SimpleMatrix Xu; //x coordinates in each lattice points;points are uniformly distribited in the undistorted image. Calculated from xprime
 	SimpleMatrix Yu;
-	SimpleMatrix Xd;
+	SimpleMatrix Xd; //x coordinates in each lattice points;points are uniformly distribited in the distorted image. Calculated from x
 	SimpleMatrix Yd;
+	
 	int numCoeff; 
 	int numCorresp; 
 	SimpleMatrix A;
@@ -51,16 +73,12 @@ public class ExerciseGeoU {
 	SimpleMatrix A_pseudoinverse;
 	SimpleVector u_vec;
 	SimpleVector v_vec;
-	SimpleVector XuVector;
+	SimpleVector XuVector; #flatten Xu from matrix to vector
 	SimpleVector YuVector;
 	SimpleVector XdVector;
 	SimpleVector YdVector; 
-	Grid2D xDist;  //xDist means x_Distortion
-	Grid2D yDist;
-	Grid2D xprime; // x-coordinates of point correspondences in the undistorted image; given as input
-	Grid2D yprime; // y-coordinates of point correspondences in the undistorted image; given as input
-	Grid2D x; // x-coordinates of point correspondences in the distorted image; given as input
-	Grid2D y; // y-coordinates of point correspondences in the distorted image; given as input
+	
+	
 	
 	
 	/** 
