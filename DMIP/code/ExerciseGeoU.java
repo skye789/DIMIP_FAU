@@ -269,20 +269,18 @@ public class ExerciseGeoU {
 				
 				int cc = 0;
 
-                int xx = (int) ((i)/fx-0.5);
-                int yy = (int) ((j)/fy-0.5);
+               			int xx = (int) ((i)/fx-0.5);
+                		int yy = (int) ((j)/fy-0.5);
 
-
-//        		System.out.println(YdVector);
 				
 				for(int k = 0; k <= degree; k++){
 					for(int l = 0; l <= degree - k; l++){
 
-						val1 = (float) (Math.pow(YuVector.getElement(xx*ny + yy), k)*Math.pow(XuVector.getElement(xx*ny + yy), l)*u_vec.getElement(cc));// TODO
-						val2 = (float) (Math.pow(YuVector.getElement(xx*ny + yy), k)*Math.pow(XuVector.getElement(xx*ny + yy), l)*v_vec.getElement(cc));// TODO
+						val1 = (float) (u_vec.getElement(cc) * Math.pow(xprime.getAtIndex(i, j), k) * Math.pow(yprime.getAtIndex(i, j), l));// TODO
+						val2 = (float) (v_vec.getElement(cc) * Math.pow(xprime.getAtIndex(i, j), k) * Math.pow(yprime.getAtIndex(i, j), l));// TODO
 						
-						xDist.addAtIndex(j, i, val1);// TODO: fill xDist
-						yDist.addAtIndex(i, j, val2);// TODO: fill yDist
+						xDist.setAtIndex(i, j, (float) (xDist.getAtIndex(i, j) + val1) );// TODO: fill xDist
+						yDist.setAtIndex(i, j, (float) (yDist.getAtIndex(i, j) + val2) );// TODO: fill yDist
 						
 						cc++;
 					}
@@ -296,7 +294,7 @@ public class ExerciseGeoU {
 			for(int j = 0; j < imageHeight; j++){
 				
 				// hint: consider the fact that the coordinate origin is in the center of the image
-				val = distortedImage.getAtIndex(i, j);//TODO
+				val = InterpolationOperators.interpolateLinear(distortedImage, xDist.getAtIndex(i, j) + imageWidth/2.0f - 0.5f, yDist.getAtIndex(i, j) + imageHeight/2.0f - 0.5f);//TODO
 				grid_out.setAtIndex(i, j, val);//TODO: fill grid_out
 			}
 		}
