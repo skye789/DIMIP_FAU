@@ -51,6 +51,7 @@ public class ExerciseGeoU {
 	 *	      ...				...
 	 *	      -9			   -9.5
 	 *	      -10, -10,...)		   -10, -10,...)
+	 *   一旦我们得到了（xDist，yDist），我们可以通过interpolation来重建undistortion image的像素值。
 	 */		
 	
 	Grid2D xprime; // x-coordinates of point correspondences in the undistorted image; given as input
